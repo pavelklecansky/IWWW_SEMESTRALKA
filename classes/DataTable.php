@@ -3,9 +3,10 @@
 
 class DataTable
 {
-
     private $dataSet;
     private $columns;
+
+    private $view;
 
     /**
      * DataTable constructor.
@@ -13,6 +14,15 @@ class DataTable
     public function __construct($dataSet)
     {
         $this->dataSet = $dataSet;
+        $view = false;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function AddView()
+    {
+        $this->view = true;
     }
 
     public function addColumn($key, $humanReadableKey)
@@ -22,7 +32,7 @@ class DataTable
 
     public function render($nazev)
     {
-        echo ' <table >';
+        echo ' <table class="pure-table">';
         echo '<thead>';
         foreach ($this->columns as $key => $value) {
             echo '<th>' . $value . '</th>';
@@ -38,8 +48,11 @@ class DataTable
                 echo '<td>' . $row[$key] . '</td>';
             }
             echo "<td>";
-            echo "<a href='" . $nazev . "Edit.php?id=$id' title='Edit record' data-toggle='tooltip'><i class='edit icon'></i></a>";
-            echo "<a href='./includes/" . $nazev . "Delete.inc.php?id=$id' title='Delete Record' data-toggle='tooltip'><i class='trash icon'></i></a>";
+            if ($this->view) {
+                echo "<a href='" . $nazev . "View.php?id=$id' title='View record'><i class='far fa-eye'></i></a>";
+            }
+            echo "<a href='" . $nazev . "Edit.php?id=$id' title='Edit record'><i class='fas fa-edit'></i></a>";
+            echo "<a href='./includes/" . $nazev . "Delete.inc.php?id=$id' title='Delete Record'><i class='far fa-trash-alt''></i></a>";
             echo "</td>";
 
             echo '</tr>';

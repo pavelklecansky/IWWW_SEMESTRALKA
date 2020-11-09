@@ -8,20 +8,22 @@ if (!$user->isLogged()) {
 <?php require_once "./template/header.php" ?>
 
 
-<div id="layout">
+<section id="layout">
     <?php require_once "./template/navigation.php" ?>
     <div class="content">
-        <h1>Admin Index</h1>
+        <?php
+        $dataTable = new DataTable(PostRepository::getAllForIndex());
+        $dataTable->AddView();
+        $dataTable->addColumn("post_id", "Id");
+        $dataTable->addColumn("title", "Titulek");
+        $dataTable->addColumn("date", "Datum");
+        $dataTable->addColumn("username", "Tvůrce");
+        $dataTable->addColumn("published", "Publikováno");
+        $dataTable->render("post");
+        ?>
+        <a href="./postAdd.php"><button class="pure-button pure-button-primary">Přidat článek</button></a>
     </div>
-</div>
-
-<?php
-//
-//if($user->logout()){
-//    header("location: ../login.php");
-//}
-//
-//?>
+</section>
 
 
 <?php require_once "./template/footer.php" ?>
