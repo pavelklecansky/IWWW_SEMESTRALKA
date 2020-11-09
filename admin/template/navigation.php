@@ -5,15 +5,21 @@
     <span></span>
 </a>
 
-<div id="menu">
+<nav id="menu">
     <div class="pure-menu">
         <a class="pure-menu-heading" href="#">Admin</a>
 
         <ul class="pure-menu-list">
-            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Home</a></li>
-            <li class="pure-menu-item"><a href="#" class="pure-menu-link">About</a></li>
-            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Services</a></li>
-            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Contact</a></li>
+            <li class="pure-menu-item"><a href="./index.php" class="pure-menu-link">Blog</a></li>
+            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Kategorie</a></li>
+            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Tagy</a></li>
+            <?php
+            if ($user->isAdmin()) {
+                echo '<li class="pure-menu-item"><a href="./users.php" class="pure-menu-link">Uživatele</a></li>';
+            }
+
+            ?>
+            <li class="pure-menu-item"><a href="./includes/logout.php" class="pure-menu-link">Odhlásit</a></li>
         </ul>
     </div>
-</div>
+</nav>

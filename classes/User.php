@@ -11,6 +11,13 @@ class User
         }
     }
 
+    public function isAdmin()
+    {
+        if (isset($_SESSION["admin"]) && $_SESSION["admin"] == true) {
+            return true;
+        }
+    }
+
 
     public function login($username_email, $password)
     {
@@ -26,11 +33,13 @@ class User
             $_SESSION["loggedin"] = true;
             $_SESSION["userId"] = $user["id"];
             $_SESSION["username"] = $user["username"];
+            $_SESSION["admin"] = $user["role_id"] == 1;
             return true;
         }
     }
 
-    public function logout(){
+    public function logout()
+    {
         session_start();
         session_unset();
         session_destroy();
@@ -39,7 +48,7 @@ class User
 
     private function passwordVerify($password, $databasePassword)
     {
-        return $password == $databasePassword;
+        return password_verify($password, $databasePassword);
     }
 
 }

@@ -1,7 +1,11 @@
 <?php
-function __autoload($class) {
-    require_once  '../classes/' . $class .'.php';
+
+function __autoload($class)
+{
+    require_once $_SERVER["DOCUMENT_ROOT"] . '/classes/' . $class . '.php';
 }
+
+$root = $_SERVER["DOCUMENT_ROOT"];
 ob_start();
 session_start();
 
