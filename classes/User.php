@@ -31,7 +31,7 @@ class User
             return false;
         } else {
             $_SESSION["loggedin"] = true;
-            $_SESSION["userId"] = $user["id"];
+            $_SESSION["userId"] = $user["user_id"];
             $_SESSION["username"] = $user["username"];
             $_SESSION["admin"] = $user["role_id"] == 1;
             return true;

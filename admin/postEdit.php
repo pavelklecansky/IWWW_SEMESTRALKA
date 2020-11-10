@@ -8,12 +8,18 @@ if (isset($_POST['submit'])) {
     extract($_POST);
 
     $published = $published == "on" ? 1 : 0;
-    $author = $_SESSION["userId"];
 
-    PostRepository::insertPost($title, $content, $date, $published, $author);
+    PostRepository::updatePost($_GET["id"], $title, $content, $date, $published);
     header("location: ./index.php");
     exit();
 }
+$row = PostRepository::getPostById($_GET["id"]);
+if (!isset($row)) {
+    header("location: ./users.php");
+    exit();
+}
+extract($row);
+
 ?>
 <?php require_once "./template/header.php" ?>
 
@@ -25,15 +31,25 @@ if (isset($_POST['submit'])) {
             <fieldset>
                 <legend>Přidat článek</legend>
                 <label for="title">Titulek</label>
-                <input type="text" id="title" name="title" placeholder="Titulek" required />
+                <input type="text" id="title" name="title" placeholder="Titulek" required
+                       value="<?php echo $title; ?>"/>
                 <label for="date">Datum</label>
                 <input type="date" id="date" name="date" required/>
                 <label for="content">Obsah</label>
                 <textarea class="form-control" rows="3" id="content" name="content"></textarea>
-                <label for="published">Publikovat
-                    <input type="checkbox" id="published" name="published" placeholder="Publikovat"/></label>
 
-                <input type="submit" name="submit" class="pure-button pure-button-primary" value="Přidej článek"/>
+                <label for="published">Publikovat
+                    <?php
+                    if ($published) {
+                        echo ' <input type="checkbox" id="published" name="published" placeholder="Publikovat" checked/>';
+                    } else {
+                        echo ' <input type="checkbox" id="published" name="published" placeholder="Publikovat"/>';
+                    }
+                    ?>
+
+                </label>
+
+                <input type="submit" name="submit" class="pure-button pure-button-primary" value="Upravit článek"/>
             </fieldset>
         </form>
 
@@ -47,7 +63,8 @@ if (isset($_POST['submit'])) {
     var simplemde = new SimpleMDE({
         element: document.getElementById("content")
     });
-    document.querySelector("#date").valueAsDate = new Date();
+    simplemde.value(`<?php echo $content; ?>`);
+    document.querySelector("#date").valueAsDate = new Date("<?php echo $date; ?>");
 
 </script>
 
