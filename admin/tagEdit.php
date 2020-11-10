@@ -7,14 +7,14 @@ if (!$user->isLogged()) {
 if (isset($_POST['submit'])) {
     extract($_POST);
 
-    CategoryRepository::updateCategory($_GET["id"], $title, $slug);
-    header("location: ./categories.php");
+    TagRepository::updateTag($_GET["id"], $title, $slug);
+    header("location: ./tags.php");
     exit();
 }
 
-$row = CategoryRepository::getCategoryById($_GET["id"]);
+$row = TagRepository::getTagById($_GET["id"]);
 if (!isset($row)) {
-    header("location: ./categories.php");
+    header("location: ./tags.php");
     exit();
 }
 extract($row);
@@ -29,16 +29,16 @@ extract($row);
 <section id="layout">
     <?php require_once "./template/navigation.php" ?>
     <article class="content">
-        <form action="./categoryEdit.php?id=<?php echo $_GET["id"]; ?>" method="post"
+        <form action="./tagEdit.php?id=<?php echo $_GET["id"]; ?>" method="post"
               class="pure-form pure-form-stacked">
             <fieldset>
-                <legend>Upravit kategorii</legend>
+                <legend>Upravit tag</legend>
                 <label for="title">Titulek</label>
                 <input type="text" id="title" name="title" placeholder="Titulek" required
                        value="<?php echo $title; ?>"/>
                 <label for="slug">Slug</label>
                 <input type="text" id="slug" name="slug" placeholder="Slug" required value="<?php echo $slug; ?>"/>
-                <input type="submit" name="submit" class="pure-button pure-button-primary" value="Upravit kategorii"/>
+                <input type="submit" name="submit" class="pure-button pure-button-primary" value="Upravit tag"/>
             </fieldset>
         </form>
     </article>

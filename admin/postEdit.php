@@ -9,7 +9,12 @@ if (isset($_POST['submit'])) {
 
     $published = $published == "on" ? 1 : 0;
 
-    PostRepository::updatePost($_GET["id"], $title, $content, $date, $published);
+    PostRepository::updatePost($_GET["id"], $title, $content, $date, $published, $category);
+    TagRepository::deleteAllTagByPostID($_GET["id"]);
+    foreach ($tagIds as $tag_id) {
+        TagRepository::addTagToPost($_GET["id"], $tag_id);
+    }
+
     header("location: ./index.php");
     exit();
 }
@@ -18,6 +23,13 @@ if (!isset($row)) {
     header("location: ./users.php");
     exit();
 }
+
+$allTags = TagRepository::getTagByPostId($_GET["id"]);
+$allTagsIds = [];
+foreach ($allTags as $item) {
+    array_push($allTagsIds, $item["tag_id"]);
+}
+
 extract($row);
 
 ?>
@@ -29,7 +41,7 @@ extract($row);
     <article class="content">
         <form action="./postEdit.php?id=<?php echo $_GET["id"]; ?>" method="post" class="pure-form pure-form-stacked">
             <fieldset>
-                <legend>Přidat článek</legend>
+                <legend>Upravit článek</legend>
                 <label for="title">Titulek</label>
                 <input type="text" id="title" name="title" placeholder="Titulek" required
                        value="<?php echo $title; ?>"/>
@@ -37,6 +49,38 @@ extract($row);
                 <input type="date" id="date" name="date" required/>
                 <label for="content">Obsah</label>
                 <textarea class="form-control" rows="3" id="content" name="content"></textarea>
+                <label for="category">Kategorie</label>
+                <select name="category" id="category">
+                    <?php
+                    foreach (CategoryRepository::getAll() as $category) {
+                        extract($category);
+                        if ($category_category_id == $category_id) {
+                            echo "<option value='$category_id' selected>$title</option>";
+                        } else {
+                            echo "<option value='$category_id'>$title</option>";
+                        }
+                    } ?>
+                </select>
+
+                <article class="tags">
+                    <p>Tagy</p>
+                    <fieldset>
+                        <?php
+                        foreach (TagRepository::getAll() as $tag) {
+                            extract($tag);
+                            if (in_array($tag_id, $allTagsIds)) {
+                                echo "<label for='tagIds[]'>$title ";
+                                echo "<input checked type='checkbox' id='$slug' name='tagIds[]' value='$tag_id' placeholder='$title'/></label>";
+
+                            } else {
+                                echo "<label for='tagIds[]'>$title ";
+                                echo "<input type='checkbox' id='$slug' name='tagIds[]' value='$tag_id' placeholder='$title'/></label>";
+
+                            }
+                        }
+                        ?>
+                    </fieldset>
+                </article>
 
                 <label for="published">Publikovat
                     <?php

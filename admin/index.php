@@ -19,9 +19,12 @@ if (!$user->isLogged()) {
         $dataTable->addColumn("date", "Datum");
         $dataTable->addColumn("username", "Tvůrce");
         $dataTable->addColumn("published", "Publikováno");
+        $dataTable->addColumn("categoriiTitle", "Kategorie");
         $dataTable->render("post");
         ?>
-        <a href="./postAdd.php"><button class="pure-button pure-button-primary">Přidat článek</button></a>
+        <a href="./postAdd.php">
+            <button class="pure-button pure-button-primary">Přidat článek</button>
+        </a>
     </article>
 </section>
 

@@ -5,6 +5,31 @@ a {
 i {
     margin: 1px;
 }
+label{
+    font-weight: bold;
+}
+
+.tags{
+    margin-top: 1em;
+    margin-bottom: 1em;
+
+}
+
+.tags fieldset{
+    display: flex;
+
+}
+
+.tags p{
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.tags fieldset label{
+    font-weight: normal;
+    margin-bottom: 0;
+    margin-right: 0.5em;
+}
 
 /*
 Message

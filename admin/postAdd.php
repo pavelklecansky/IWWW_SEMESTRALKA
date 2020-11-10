@@ -10,7 +10,11 @@ if (isset($_POST['submit'])) {
     $published = $published == "on" ? 1 : 0;
     $author = $_SESSION["userId"];
 
-    PostRepository::insertPost($title, $content, $date, $published, $author);
+    $post_id = PostRepository::insertPost($title, $content, $date, $published, $author, $category);
+    foreach ($tagIds as $tag_id) {
+        TagRepository::addTagToPost($post_id, $tag_id);
+    }
+
     header("location: ./index.php");
     exit();
 }
@@ -21,15 +25,39 @@ if (isset($_POST['submit'])) {
 <section id="layout">
     <?php require_once "./template/navigation.php" ?>
     <article class="content">
-        <form action="./postAdd.php" method="post" class="pure-form pure-form-stacked">
+        <form action="postAdd.php" method="post" class="pure-form pure-form-stacked">
             <fieldset>
                 <legend>Přidat článek</legend>
                 <label for="title">Titulek</label>
-                <input type="text" id="title" name="title" placeholder="Titulek" required />
+                <input type="text" id="title" name="title" placeholder="Titulek" required/>
                 <label for="date">Datum</label>
                 <input type="date" id="date" name="date" required/>
                 <label for="content">Obsah</label>
                 <textarea class="form-control" rows="3" id="content" name="content"></textarea>
+                <label for="category">Kategorie</label>
+                <select name="category" id="category">
+                    <?php
+                    foreach (CategoryRepository::getAll() as $category) {
+                        extract($category);
+                        echo "<option value='$category_id'>$title</option>";
+                    }
+
+                    ?>
+                </select>
+
+                <article class="tags">
+                    <p>Tagy</p>
+                    <fieldset>
+                        <?php
+                        foreach (TagRepository::getAll() as $tag) {
+                            extract($tag);
+                            echo "<label for='tagIds[]'>$title ";
+                            echo "<input type='checkbox' id='$slug' name='tagIds[]' value='$tag_id' placeholder='$title'/></label>";
+                        }
+                        ?>
+                    </fieldset>
+                </article>
+
                 <label for="published">Publikovat
                     <input type="checkbox" id="published" name="published" placeholder="Publikovat"/></label>
 

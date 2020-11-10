@@ -12,7 +12,7 @@
         <ul class="pure-menu-list">
             <li class="pure-menu-item"><a href="./index.php" class="pure-menu-link">Blog</a></li>
             <li class="pure-menu-item"><a href="./categories.php" class="pure-menu-link">Kategorie</a></li>
-            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Tagy</a></li>
+            <li class="pure-menu-item"><a href="./tags.php" class="pure-menu-link">Tagy</a></li>
             <?php
             if ($user->isAdmin()) {
                 echo '<li class="pure-menu-item"><a href="./users.php" class="pure-menu-link">Uživatele</a></li>';
