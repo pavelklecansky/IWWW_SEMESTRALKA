@@ -18,9 +18,9 @@ if (isset($_POST['submit'])) {
 <?php require_once "./template/header.php" ?>
 
 
-<div id="layout">
+<section id="layout">
     <?php require_once "./template/navigation.php" ?>
-    <div class="content">
+    <article class="content">
         <form action="./postAdd.php" method="post" class="pure-form pure-form-stacked">
             <fieldset>
                 <legend>Přidat článek</legend>
@@ -37,8 +37,8 @@ if (isset($_POST['submit'])) {
             </fieldset>
         </form>
 
-    </div>
-</div>
+    </article>
+</section>
 
 <link rel="stylesheet" href="//cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 <script src="//cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>

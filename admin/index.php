@@ -10,7 +10,7 @@ if (!$user->isLogged()) {
 
 <section id="layout">
     <?php require_once "./template/navigation.php" ?>
-    <div class="content">
+    <article class="content">
         <?php
         $dataTable = new DataTable(PostRepository::getAllForIndex());
         $dataTable->AddView();
@@ -22,7 +22,7 @@ if (!$user->isLogged()) {
         $dataTable->render("post");
         ?>
         <a href="./postAdd.php"><button class="pure-button pure-button-primary">Přidat článek</button></a>
-    </div>
+    </article>
 </section>
 
 

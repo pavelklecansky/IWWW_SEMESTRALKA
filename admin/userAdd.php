@@ -43,9 +43,9 @@ if (isset($_POST['submit'])) {
 <?php require_once "./template/header.php" ?>
 
 
-<div id="layout">
+<section id="layout">
     <?php require_once "./template/navigation.php" ?>
-    <div class="content">
+    <article class="content">
         <form action="./userAdd.php" method="post" class="pure-form pure-form-stacked">
             <fieldset>
                 <legend>Přidání uživatele</legend>
@@ -83,8 +83,8 @@ if (isset($_POST['submit'])) {
             </fieldset>
         </form>
 
-    </div>
-</div>
+    </article>
+</section>
 
 
 <?php require_once "./template/footer.php" ?>

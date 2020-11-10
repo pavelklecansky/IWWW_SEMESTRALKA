@@ -24,10 +24,10 @@ extract($row);
 <?php require_once "./template/header.php" ?>
 
 
-<div id="layout">
+<section id="layout">
     <?php require_once "./template/navigation.php" ?>
-    <div class="content">
-        <form action="./postAdd.php" method="post" class="pure-form pure-form-stacked">
+    <article class="content">
+        <form action="./postEdit.php?id=<?php echo $_GET["id"]; ?>" method="post" class="pure-form pure-form-stacked">
             <fieldset>
                 <legend>Přidat článek</legend>
                 <label for="title">Titulek</label>
@@ -53,8 +53,8 @@ extract($row);
             </fieldset>
         </form>
 
-    </div>
-</div>
+    </article>
+</section>
 
 <link rel="stylesheet" href="//cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 <script src="//cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>

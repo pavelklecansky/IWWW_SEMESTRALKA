@@ -13,9 +13,9 @@ if (!$user->isAdmin()) {
 <?php require_once "./template/header.php" ?>
 
 
-<div id="layout">
+<section id="layout">
     <?php require_once "./template/navigation.php" ?>
-    <div class="content">
+    <article class="content">
         <?php
         $dataTable = new DataTable(UserRepository::getAllWithNameRole());
         $dataTable->addColumn("user_id", "Id");
@@ -27,8 +27,8 @@ if (!$user->isAdmin()) {
         $dataTable->render("user");
         ?>
         <a href="./userAdd.php"><button class="pure-button pure-button-primary">Přidat uživatele</button></a>
-    </div>
-</div>
+    </article>
+</section>
 
 
 <?php require_once "./template/footer.php" ?>

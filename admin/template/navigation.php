@@ -7,11 +7,11 @@
 
 <nav id="menu">
     <div class="pure-menu">
-        <a class="pure-menu-heading" href="#">Admin</a>
+        <a class="pure-menu-heading" href="./index.php">Admin</a>
 
         <ul class="pure-menu-list">
             <li class="pure-menu-item"><a href="./index.php" class="pure-menu-link">Blog</a></li>
-            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Kategorie</a></li>
+            <li class="pure-menu-item"><a href="./categories.php" class="pure-menu-link">Kategorie</a></li>
             <li class="pure-menu-item"><a href="#" class="pure-menu-link">Tagy</a></li>
             <?php
             if ($user->isAdmin()) {

@@ -58,9 +58,9 @@ extract($row);
 <?php require_once "./template/header.php" ?>
 
 
-<div id="layout">
+<section id="layout">
     <?php require_once "./template/navigation.php" ?>
-    <div class="content">
+    <article class="content">
         <form action="./userEdit.php?id=<?php echo $_GET["id"]; ?>" method="post" class="pure-form pure-form-stacked">
             <fieldset>
                 <legend>Upravit uživatele</legend>
@@ -108,8 +108,8 @@ extract($row);
             </fieldset>
         </form>
 
-    </div>
-</div>
+    </article>
+</section>
 
 
 <?php require_once "./template/footer.php" ?>
