@@ -19,7 +19,6 @@
             }
 
             ?>
-            <li class="pure-menu-item"><a href="../index.php" class="pure-menu-link">Web</a></li>
             <li class="pure-menu-item"><a href="./includes/logout.php" class="pure-menu-link">Odhlásit</a></li>
         </ul>
     </div>

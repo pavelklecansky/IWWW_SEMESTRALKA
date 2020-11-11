@@ -12,7 +12,7 @@ if (!$user->isLogged()) {
     <?php require_once "./template/navigation.php" ?>
     <article class="content">
         <?php
-        $dataTable = new DataTable(PostRepository::getAllForIndex());
+        $dataTable = new DataTable(PostRepository::getAllForAdminIndex());
         $dataTable->AddView();
         $dataTable->addColumn("post_id", "Id");
         $dataTable->addColumn("title", "Titulek");

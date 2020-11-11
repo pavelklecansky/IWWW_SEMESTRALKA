@@ -10,7 +10,7 @@ if (isset($_POST['submit'])) {
     $published = $published == "on" ? 1 : 0;
     $author = $_SESSION["userId"];
 
-    $post_id = PostRepository::insertPost($title, $content, $date, $published, $author, $category);
+    $post_id = PostRepository::insertPost($title, $content, $date, $published, $author, $category, $description);
     foreach ($tagIds as $tag_id) {
         TagRepository::addTagToPost($post_id, $tag_id);
     }
@@ -32,6 +32,8 @@ if (isset($_POST['submit'])) {
                 <input type="text" id="title" name="title" placeholder="Titulek" required/>
                 <label for="date">Datum</label>
                 <input type="date" id="date" name="date" required/>
+                <label for="description">Popis</label>
+                <textarea cols="50" id="description" name="description" placeholder="Popis"></textarea>
                 <label for="content">Obsah</label>
                 <textarea class="form-control" rows="3" id="content" name="content"></textarea>
                 <label for="category">Kategorie</label>

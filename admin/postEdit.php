@@ -9,7 +9,7 @@ if (isset($_POST['submit'])) {
 
     $published = $published == "on" ? 1 : 0;
 
-    PostRepository::updatePost($_GET["id"], $title, $content, $date, $published, $category);
+    PostRepository::updatePost($_GET["id"], $title, $content, $date, $published, $category,$description);
     TagRepository::deleteAllTagByPostID($_GET["id"]);
     foreach ($tagIds as $tag_id) {
         TagRepository::addTagToPost($_GET["id"], $tag_id);
@@ -47,6 +47,9 @@ extract($row);
                        value="<?php echo $title; ?>"/>
                 <label for="date">Datum</label>
                 <input type="date" id="date" name="date" required/>
+                <label for="description">Popis</label>
+                <textarea cols="50" id="description" name="description"
+                          placeholder="Popis"><?php echo $description; ?></textarea>
                 <label for="content">Obsah</label>
                 <textarea class="form-control" rows="3" id="content" name="content"></textarea>
                 <label for="category">Kategorie</label>

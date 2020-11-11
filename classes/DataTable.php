@@ -49,7 +49,7 @@ class DataTable
             }
             echo "<td>";
             if ($this->view) {
-                echo "<a href='" . $nazev . "View.php?id=$id' title='View record'><i class='far fa-eye'></i></a>";
+                echo "<a href='../" . $nazev . "View.php?id=$id' title='View record'><i class='far fa-eye'></i></a>";
             }
             echo "<a href='" . $nazev . "Edit.php?id=$id' title='Edit record'><i class='fas fa-edit'></i></a>";
             echo "<a href='./includes/" . $nazev . "Delete.inc.php?id=$id' title='Delete Record'><i class='far fa-trash-alt''></i></a>";

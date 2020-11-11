@@ -1,0 +1,25 @@
+a{
+    color: #a33a3a;
+    text-decoration: none;
+}
+
+#layout {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1.5em;
+}
+
+#layout header h3{
+   text-align: right;
+    font-size: 1.5em;
+}
+
+.post header h2{
+    margin-bottom: 0;
+}
+
+.post header p{
+    margin-top: 1px;
+    font-size: 0.9em;
+    color:#333333;
+}

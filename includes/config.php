@@ -1,5 +1,6 @@
 <?php
 
+require_once $_SERVER["DOCUMENT_ROOT"] . "/lib/Parsedown.php";
 function __autoload($class)
 {
     require_once $_SERVER["DOCUMENT_ROOT"] . '/classes/' . $class . '.php';
