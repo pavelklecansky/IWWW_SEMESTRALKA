@@ -4,6 +4,16 @@ if (!$user->isLogged()) {
     header("location: ./login.php");
     exit();
 }
+
+$errorMessage = "";
+if (isset($_GET['error'])) {
+    $error = $_GET['error'];
+    if ($error = "badjson") {
+        $errorMessage = "Json je poškozen nebo je vložen ve špatném formátu.";
+    }
+}
+
+
 ?>
 <?php require_once "./template/header.php" ?>
 
@@ -14,6 +24,7 @@ if (!$user->isLogged()) {
         <?php
         $dataTable = new DataTable(PostRepository::getAllForAdminIndex());
         $dataTable->AddView();
+        $dataTable->AddExport();
         $dataTable->addColumn("post_id", "Id");
         $dataTable->addColumn("title", "Titulek");
         $dataTable->addColumn("date", "Datum");
@@ -25,8 +36,18 @@ if (!$user->isLogged()) {
         <a href="./postAdd.php">
             <button class="pure-button pure-button-primary">Přidat článek</button>
         </a>
+        <form action="./includes/postImport.inc.php" method="post" enctype="multipart/form-data">
+            <input type="file" name="jsonImport" id="jsonImport" accept=".json">
+            <button class="pure-button pure-button-primary" id="OpenJsonImport">Import článek</button>
+        </form>
+        <?php
+        if ($errorMessage != "") {
+            echo '<div class="bar error">';
+            echo $errorMessage;
+            echo '</div>';
+        }
+        ?>
     </article>
 </section>
-
 
 <?php require_once "./template/footer.php" ?>

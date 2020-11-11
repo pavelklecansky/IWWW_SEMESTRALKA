@@ -20,6 +20,15 @@ class TagRepository
         return $stmt->fetch();
     }
 
+    static function getTagIdByTitle($title)
+    {
+        $conn = Connection::getPdoInstance();
+        $stmt = $conn->prepare("SELECT tag_id FROM tag WHERE title=:title");
+        $stmt->bindParam(":title", $title);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
     static function getTagByPostId($id)
     {
         $conn = Connection::getPdoInstance();
@@ -45,6 +54,20 @@ class TagRepository
         $stmt->execute();
     }
 
+
+    static function tagExists($title)
+    {
+        $conn = Connection::getPdoInstance();
+        $stmt = $conn->prepare("SELECT * FROM tag WHERE title=:title");
+        $stmt->bindParam(":title", $title);
+        $stmt->execute();
+        if ($stmt->fetch()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     static function insertTag($title, $slug)
     {
         $conn = Connection::getPdoInstance();
@@ -52,6 +75,7 @@ class TagRepository
         $stmt->bindParam(":title", $title);
         $stmt->bindParam(":slug", $slug);
         $stmt->execute();
+        return $conn->lastInsertId();
     }
 
     static function updateTag($id, $title, $slug)
@@ -64,7 +88,8 @@ class TagRepository
         $stmt->execute();
     }
 
-    static function addTagToPost($post_id,$tag_id){
+    static function addTagToPost($post_id, $tag_id)
+    {
         $conn = Connection::getPdoInstance();
         $stmt = $conn->prepare("INSERT INTO post_tag(post_id, tag_id) VALUE (:post_id,:tag_id)");
         $stmt->bindParam(":post_id", $post_id);

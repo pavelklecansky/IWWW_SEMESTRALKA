@@ -20,12 +20,44 @@ class CategoryRepository
         return $stmt->fetch();
     }
 
+    static function getCategoryIdByTitle($title)
+    {
+        $conn = Connection::getPdoInstance();
+        $stmt = $conn->prepare("SELECT category_id FROM category WHERE title=:title");
+        $stmt->bindParam(":title", $title);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    static function getCategoryTitleById($id)
+    {
+        $conn = Connection::getPdoInstance();
+        $stmt = $conn->prepare("SELECT title FROM category WHERE category_id=:id");
+        $stmt->bindParam(":id", $id);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
     static function deleteCategoryById($id)
     {
         $conn = Connection::getPdoInstance();
         $stmt = $conn->prepare("DELETE FROM category WHERE category_id=:id");
         $stmt->bindParam(":id", $id);
         $stmt->execute();
+    }
+
+
+    static function categoryExists($title)
+    {
+        $conn = Connection::getPdoInstance();
+        $stmt = $conn->prepare("SELECT * FROM category WHERE title=:title");
+        $stmt->bindParam(":title", $title);
+        $stmt->execute();
+        if ($stmt->fetch()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     static function insertCategory($title, $slug)
@@ -35,6 +67,7 @@ class CategoryRepository
         $stmt->bindParam(":title", $title);
         $stmt->bindParam(":slug", $slug);
         $stmt->execute();
+        return $conn->lastInsertId();
     }
 
     static function updateCategory($id, $title, $slug)

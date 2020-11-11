@@ -5,7 +5,7 @@ class DataTable
 {
     private $dataSet;
     private $columns;
-
+    private $export;
     private $view;
 
     /**
@@ -23,6 +23,11 @@ class DataTable
     public function AddView()
     {
         $this->view = true;
+    }
+
+    public function AddExport()
+    {
+        $this->export = true;
     }
 
     public function addColumn($key, $humanReadableKey)
@@ -53,6 +58,9 @@ class DataTable
             }
             echo "<a href='" . $nazev . "Edit.php?id=$id' title='Edit record'><i class='fas fa-edit'></i></a>";
             echo "<a href='./includes/" . $nazev . "Delete.inc.php?id=$id' title='Delete Record'><i class='far fa-trash-alt''></i></a>";
+            if ($this->export) {
+                echo "<a href='./includes/" . $nazev . "Export.inc.php?id=$id' title='Export record'><i class='fas fa-file-export'></i></a>";
+            }
             echo "</td>";
 
             echo '</tr>';
