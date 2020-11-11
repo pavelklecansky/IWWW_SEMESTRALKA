@@ -84,7 +84,7 @@ extract($row);
                     foreach (RoleRepository::getAll() as $role) {
                         $id = $role["role_id"];
                         $name = $role["name"];
-                        if ($id = $role_id) {
+                        if ($id == $role_id) {
                             echo "<option value='$id' selected>$name</option>";
                         } else {
                             echo "<option value='$id'>$name</option>";

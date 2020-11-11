@@ -1,25 +1,89 @@
-a{
+a {
     color: #a33a3a;
     text-decoration: none;
 }
 
+body {
+    min-height: 100vh;
+    margin: 0;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    margin-top: auto;
+    min-height: 50px;
+    background: #222;
+}
+
+footer a {
+    color: rgb(224, 96, 96);
+
+}
+
+/* Trick */
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.title {
+    color: black;
+}
+
+.titleHeader {
+    display: flex;
+    justify-content: space-between;
+}
+.post{
+    margin-bottom: 10px;
+}
+.post header h2 {
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.post header p {
+    margin-top: 1px;
+    font-size: 0.9em;
+    color: #333333;
+}
+
+#sidebars{
+    margin-left: 15px;
+    margin-top: 10vh;
+    display: flex;
+    flex-direction: column;
+
+}
+
+#sidebars h3{
+    font-size: 1.5em;
+    margin-bottom: 0;
+}
+#sidebars a{
+    font-size: 1.1em;
+
+}
+
 #layout {
+    display: flex;
     max-width: 800px;
     margin: 0 auto;
     padding: 0 1.5em;
 }
 
-#layout header h3{
-   text-align: right;
+#layoutPost {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1.5em;
+}
+
+#layout header h3 {
+    text-align: right;
     font-size: 1.5em;
-}
-
-.post header h2{
-    margin-bottom: 0;
-}
-
-.post header p{
-    margin-top: 1px;
-    font-size: 0.9em;
-    color:#333333;
 }

@@ -6,20 +6,20 @@ if ($user->isLogged()) {
 }
 ?>
 
-<?php require_once "./template/header.php"?>
+<?php require_once "./template/header.php" ?>
+
+    <div class="login">
+        <form method="post" action="../includes/login.inc.php" class="pure-form pure-form-stacked">
+
+            <lable> Uživatelské jméno/Email:</lable>
+            <input type="text" name="username" placeholder="Uživatelské jméno/Email"/>
+
+            <lable> Heslo</lable>
+            <input type="password" name="password" placeholder="Heslo"/>
+
+            <input type="submit" name="submit" class="pure-button pure-button-primary" value="Přihlasit"/>
+        </form>
+    </div>
 
 
-<form method="post" action="../includes/login.inc.php" class="pure-form">
-    <p>
-        Uživatelské jméno/Email:
-        <input type="text" name="username" placeholder="Uživatelské jméno/Email"/>
-    </p>
-    <p>
-        Heslo:
-        <input type="password" name="password" placeholder="Heslo"/>
-    </p>
-    <input type="submit" name="submit" class="pure-button pure-button-primary" value="Přihlasit"/>
-</form>
-
-
-<?php require_once "./template/footer.php"?>
+<?php require_once "./template/footer.php" ?>

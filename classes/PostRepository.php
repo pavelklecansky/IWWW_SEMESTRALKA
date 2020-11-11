@@ -21,10 +21,61 @@ FROM post JOIN user u on u.user_id = post.post_author JOIN category c on c.categ
         return $stmt->fetchAll();
     }
 
+    static function getAllForIndexByCategoryId($id): array
+    {
+        $conn = Connection::getPdoInstance();
+        $stmt = $conn->prepare("SELECT post_id,post.title,DATE_FORMAT(date, '%d.%m.%Y') as date,username, c.title AS categoriiTitle,description
+FROM post JOIN user u on u.user_id = post.post_author JOIN category c on c.category_id = post.category_category_id WHERE published=1 AND category_id=:id GROUP BY date DESC");
+        $stmt->bindParam(":id", $id);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    static function getAllForIndexByTagId($id): array
+    {
+        $conn = Connection::getPdoInstance();
+        $stmt = $conn->prepare("SELECT post.post_id,
+       post.title,
+       DATE_FORMAT(date, '%d.%m.%Y') as date,
+       username,
+       c.title                       AS categoriiTitle,
+       description
+FROM post
+         JOIN user u on u.user_id = post.post_author
+         JOIN category c on c.category_id = post.category_category_id
+         join post_tag pt on post.post_id = pt.post_id
+WHERE published = 1
+  AND pt.tag_id = :id
+GROUP BY date DESC;");
+        $stmt->bindParam(":id", $id);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
     static function getPostById($id)
     {
         $conn = Connection::getPdoInstance();
         $stmt = $conn->prepare("SELECT * FROM post WHERE post_id=:id");
+        $stmt->bindParam(":id", $id);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    static function getPostByIdForView($id)
+    {
+        $conn = Connection::getPdoInstance();
+        $stmt = $conn->prepare("SELECT post_id,
+       post_author,
+       post.title as title,
+       description,
+       content,
+       date,
+       published,
+       category_category_id,
+       category_id,
+       c.title as categoryTitle,
+       slug
+FROM post join category c on c.category_id = category_category_id WHERE post_id=:id");
         $stmt->bindParam(":id", $id);
         $stmt->execute();
         return $stmt->fetch();

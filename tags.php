@@ -1,16 +1,29 @@
 <?php require_once "./includes/config.php";
 
+if (!isset($_GET["title"])) {
+    header("location: ./index.php");
+    exit();
+}
 
+
+if (!TagRepository::tagExists($_GET["title"])) {
+    header("location: ./index.php");
+    exit();
+}
+$tagId = (TagRepository::getTagIdByTitle($_GET["title"]))["tag_id"];
 ?>
 <?php require_once "./template/header.php" ?>
 
 
     <section id="layout">
-
         <div>
-            <h1>Můj Blog</h1>
+            <header class="titleHeader">
+                <a href="./index.php"><h1 class="title">Můj Blog</h1></a>
+                <h3>Tag <?php echo $_GET["title"]; ?></h3>
+            </header>
+
             <article class="content">
-                <?php foreach (PostRepository::getAllForIndex() as $post): extract($post) ?>
+                <?php foreach (PostRepository::getAllForIndexByTagId($tagId) as $post): extract($post) ?>
                     <section class="post">
                         <header>
                             <a href="postView.php?id=<?php echo $post_id; ?>"><h2><?php echo $title; ?></h2></a>
@@ -39,7 +52,6 @@
             <?php require_once "./template/categoriesSidebar.php" ?>
             <?php require_once "./template/tagsSidebar.php" ?>
         </div>
-
     </section>
 
 

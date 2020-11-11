@@ -5,7 +5,7 @@ if (!isset($_GET["id"])) {
     exit();
 }
 
-$row = PostRepository::getPostById($_GET["id"]);
+$row = PostRepository::getPostByIdForView($_GET["id"]);
 if (!isset($row)) {
     header("location: ./index.php");
     exit();
@@ -25,22 +25,23 @@ if ($published == 0) {
 <?php require_once "./template/header.php" ?>
 
 
-<section id="layout">
+<section id="layoutPost">
     <header>
         <a href="index.php"><h3>Blog</h3></a>
         <h1><?php echo $title; ?></h1>
-        <p>Publikováno <?php echo $date; ?> v <a href="#"><?php echo $category_category_id; ?></a></p>
+        <p>Publikováno <?php echo $date; ?> v <a href="categories.php?title=<?php echo $categoryTitle; ?>"><?php echo $categoryTitle; ?></a></p>
         <p><i class="fas fa-tags"></i> <?php
             foreach (TagRepository::getTagByPostId($post_id) as $tagId) {
                 $tag = TagRepository::getTagById($tagId["tag_id"]);
                 $tagTitle = $tag["title"];
-                echo "<a href='#'>$tagTitle</a> ";
+                echo "<a href='tags.php?title=$tagTitle'>$tagTitle</a> ";
             }
             ?></p>
     </header>
     <article class="content">
         <?php echo $Parsedown->text($content);; ?>
     </article>
+    <?php require_once "./template/comments.php" ?>
 </section>
 
 
