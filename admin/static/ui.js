@@ -7,10 +7,8 @@
     function toggleAll(e) {
         var active = 'active';
 
-        e.preventDefault();
         layout.classList.toggle(active);
         menu.classList.toggle(active);
-        menuLink.classList.toggle(active);
     }
     
     function handleEvent(e) {

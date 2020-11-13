@@ -3,9 +3,20 @@ a {
     text-decoration: none;
 }
 
+code{
+    overflow-x: auto;
+}
+
 body {
     min-height: 100vh;
     margin: 0;
+    box-sizing: border-box;
+}
+
+img{
+    max-width: 100%;
+    height: auto;
+    display: block;
 }
 
 footer {
@@ -30,6 +41,12 @@ body {
     flex-direction: column;
 }
 
+.commentsForm {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2em;
+}
+
 
 .title {
     color: black;
@@ -39,9 +56,11 @@ body {
     display: flex;
     justify-content: space-between;
 }
-.post{
+
+.post {
     margin-bottom: 10px;
 }
+
 .post header h2 {
     margin-bottom: 0;
     margin-top: 0;
@@ -53,7 +72,46 @@ body {
     color: #333333;
 }
 
-#sidebars{
+/*
+    Komentáře
+*/
+.comment {
+    position: relative;
+    padding: 12px;
+    color: #595959;
+    border-radius: 0 0 4px 4px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+
+}
+
+.comment-delete {
+    color: red;
+    font-weight: 700;
+    position: absolute;
+    top: 0;
+    margin-top: 7px;
+    right: 10px;
+}
+
+.comment p {
+    margin-top: 0;
+}
+
+
+.comment .author {
+
+    font-size: 1em;
+    color: rgba(0, 0, 0, .87);
+    font-weight: 700;
+}
+
+.comment .date {
+    color: rgba(0, 0, 0, .4);
+    font-size: .875em;
+}
+
+
+#sidebars {
     margin-left: 15px;
     margin-top: 10vh;
     display: flex;
@@ -61,11 +119,12 @@ body {
 
 }
 
-#sidebars h3{
+#sidebars h3 {
     font-size: 1.5em;
     margin-bottom: 0;
 }
-#sidebars a{
+
+#sidebars a {
     font-size: 1.1em;
 
 }
@@ -86,4 +145,24 @@ body {
 #layout header h3 {
     text-align: right;
     font-size: 1.5em;
+}
+
+@media (max-width: 900px) {
+    #layoutPost {
+        margin: 0 auto;
+        max-width: 90vw;
+        padding: 0;
+    }
+
+    .comment-delete {
+        font-size: 0.7em;
+    }
+}
+
+
+@media (max-width: 400px) {
+    #sidebars {
+        display: none;
+    }
+
 }
