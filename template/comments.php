@@ -1,5 +1,6 @@
-<h2>Komentáře</h2>
+
 <section class="comments" id="commentsLink">
+    <h2>Komentáře</h2>
     <?php foreach (CommentRepository::getCommentsByPostId($post_id) as $comment): ?>
         <article class="comment">
             <?php

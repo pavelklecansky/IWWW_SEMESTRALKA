@@ -41,7 +41,9 @@ if ($published == 0) {
     <article class="content">
         <?php echo $Parsedown->text($content);; ?>
     </article>
-    <?php require_once "./template/comments.php" ?>
+    <article id="allComments">
+        <?php require_once "./template/comments.php" ?>
+    </article>
 </section>
 
 

@@ -147,6 +147,20 @@ body {
     font-size: 1.5em;
 }
 
+@media print {
+    #sidebars{
+        display: none;
+    }
+
+    #allComments{
+        display: none;
+    }
+
+    footer{
+        display: none;
+    }
+}
+
 @media (max-width: 900px) {
     #layoutPost {
         margin: 0 auto;
