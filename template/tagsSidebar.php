@@ -1,5 +1,3 @@
-<?php require_once "./template/header.php" ?>
-
 <section>
     <h3>Tagy</h3>
     <ul>

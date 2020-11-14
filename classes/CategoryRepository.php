@@ -60,19 +60,6 @@ class CategoryRepository
         }
     }
 
-    static function categoryExistsSlug($slug)
-    {
-        $conn = Connection::getPdoInstance();
-        $stmt = $conn->prepare("SELECT * FROM category WHERE slug=:slug");
-        $stmt->bindParam(":slug", $slug);
-        $stmt->execute();
-        if ($stmt->fetch()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     static function insertCategory($title, $slug)
     {
         $conn = Connection::getPdoInstance();

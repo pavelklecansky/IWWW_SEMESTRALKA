@@ -14,7 +14,6 @@ class DataTable
     public function __construct($dataSet)
     {
         $this->dataSet = $dataSet;
-        $view = false;
     }
 
     /**

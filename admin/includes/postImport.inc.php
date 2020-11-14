@@ -8,7 +8,6 @@ $string = file_get_contents($file);
 $json = json_decode($string, true);
 if ($json) {
     extract($json);
-    $categoryId;
     if (!CategoryRepository::categoryExists($category)) {
         $categoryId = CategoryRepository::insertCategory($category, strtolower($category));
     } else {
@@ -16,7 +15,6 @@ if ($json) {
     }
     $postId = PostRepository::insertPost($title, $content, $date, $published, $_SESSION["userId"], $categoryId, $description);
     foreach ($tags as $tag) {
-        $tagId;
         if (!TagRepository::tagExists($tag)) {
             $tagId = TagRepository::insertTag($tag, strtolower($tag));
         } else {

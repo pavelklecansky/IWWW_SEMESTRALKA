@@ -1,5 +1,3 @@
-<?php require_once "./template/header.php" ?>
-
 <section>
     <h3>Kategorie</h3>
     <ul>

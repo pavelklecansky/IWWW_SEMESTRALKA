@@ -11,11 +11,11 @@ if ($user->isLogged()) {
     <div class="login">
         <form method="post" action="../includes/login.inc.php" class="pure-form pure-form-stacked">
 
-            <lable> Uživatelské jméno/Email:</lable>
-            <input type="text" name="username" placeholder="Uživatelské jméno/Email"/>
+            <label for="username"> Uživatelské jméno/Email:</label>
+            <input type="text" id="username" name="username" placeholder="Uživatelské jméno/Email"/>
 
-            <lable> Heslo</lable>
-            <input type="password" name="password" placeholder="Heslo"/>
+            <label for="password"> Heslo</label>
+            <input type="password" id="username" name="password" placeholder="Heslo"/>
 
             <input type="submit" name="submit" class="pure-button pure-button-primary" value="Přihlasit"/>
         </form>
