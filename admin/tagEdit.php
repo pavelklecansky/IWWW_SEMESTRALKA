@@ -4,9 +4,22 @@ if (!$user->isLogged()) {
     header("location: ./login.php");
     exit();
 }
+
+$errorMessage = "";
+if (isset($_GET['error'])) {
+    $error = $_GET['error'];
+    if ($error == "emptyinput") {
+        $errorMessage = "Prázdný vstup";
+    }
+}
+
 if (isset($_POST['submit'])) {
     extract($_POST);
-
+    $tagId = $_GET["id"];
+    if (ValidationUtils::isEmpty($title) || ValidationUtils::isEmpty($slug)) {
+        header("location: ./tagEdit.php?id=$tagId&error=emptyinput");
+        exit();
+    }
     TagRepository::updateTag($_GET["id"], $title, $slug);
     header("location: ./tags.php");
     exit();
@@ -39,6 +52,13 @@ extract($row);
                 <label for="slug">Slug</label>
                 <input type="text" id="slug" name="slug" placeholder="Slug" required value="<?php echo $slug; ?>"/>
                 <input type="submit" name="submit" class="pure-button pure-button-primary" value="Upravit tag"/>
+                <?php
+                if ($errorMessage != "") {
+                    echo '<div class="bar error">';
+                    echo $errorMessage;
+                    echo '</div>';
+                }
+                ?>
             </fieldset>
         </form>
     </article>

@@ -4,9 +4,22 @@ if (!$user->isLogged()) {
     header("location: ./login.php");
     exit();
 }
+
+$errorMessage = "";
+if (isset($_GET['error'])) {
+    $error = $_GET['error'];
+    if ($error == "emptyinput") {
+        $errorMessage = "Prázdný vstup";
+    }
+}
+
 if (isset($_POST['submit'])) {
     extract($_POST);
-
+    $tagId = $_GET["id"];
+    if (ValidationUtils::isEmpty($title) || ValidationUtils::isEmpty($slug)) {
+        header("location: ./tagAdd.php?id=$tagId&error=emptyinput");
+        exit();
+    }
     TagRepository::insertTag($title, $slug);
     header("location: ./tags.php");
     exit();
@@ -26,6 +39,13 @@ if (isset($_POST['submit'])) {
                 <label for="slug">Slug</label>
                 <input type="text" id="slug" name="slug" placeholder="Slug" required/>
                 <input type="submit" name="submit" class="pure-button pure-button-primary" value="Přidej tag"/>
+                <?php
+                if ($errorMessage != "") {
+                    echo '<div class="bar error">';
+                    echo $errorMessage;
+                    echo '</div>';
+                }
+                ?>
             </fieldset>
         </form>
     </article>

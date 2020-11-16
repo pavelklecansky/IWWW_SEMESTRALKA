@@ -5,7 +5,10 @@ if (isset($_POST["submit"])) {
 
 
     require_once "./config.php";
-
+    if (ValidationUtils::isEmpty($username) || ValidationUtils::isEmpty($password)) {
+        header("location: ../admin/login.php?error=emptyinput");
+        exit();
+    }
     if ($user->login($username,$password)) {
         header("location: ../admin/index.php");
         exit();

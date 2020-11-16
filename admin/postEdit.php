@@ -4,9 +4,22 @@ if (!$user->isLogged()) {
     header("location: ./login.php");
     exit();
 }
+$errorMessage = "";
+if (isset($_GET['error'])) {
+    $error = $_GET['error'];
+    if ($error == "emptyinput") {
+        $errorMessage = "Prázdný vstup";
+    }
+}
 if (isset($_POST['submit'])) {
     extract($_POST);
-
+    $postId = $_GET["id"];
+    if (ValidationUtils::isEmpty($title) || ValidationUtils::isEmpty($content) ||
+        ValidationUtils::isEmpty($date) || ValidationUtils::isEmpty($published) ||
+        ValidationUtils::isEmpty($author) || ValidationUtils::isEmpty($category) || ValidationUtils::isEmpty($description)) {
+        header("location: ./postEdit.php?id=$postId&error=emptyinput");
+        exit();
+    }
     $published = $published == "on" ? 1 : 0;
 
     PostRepository::updatePost($_GET["id"], $title, $content, $date, $published, $category,$description);
@@ -97,6 +110,13 @@ extract($row);
                 </label>
 
                 <input type="submit" name="submit" class="pure-button pure-button-primary" value="Upravit článek"/>
+                <?php
+                if ($errorMessage != "") {
+                    echo '<div class="bar error">';
+                    echo $errorMessage;
+                    echo '</div>';
+                }
+                ?>
             </fieldset>
         </form>
 

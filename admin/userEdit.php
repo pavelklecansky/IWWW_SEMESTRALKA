@@ -9,28 +9,55 @@ if (!$user->isAdmin()) {
     header("location: ./index.php");
     exit();
 }
+
+if(!isset($_GET['id'])){
+    header("location: ./users.php");
+    exit();
+}
+
 $errorMessage = "";
 if (isset($_GET['error'])) {
     $error = $_GET['error'];
-    if ($error = "usernameExists") {
+    if ($error == "usernameExists") {
         $errorMessage = "Uživatelské jméno už používá jiný uživatel";
     }
-    if ($error = "emailExists") {
+    if ($error == "emailExists") {
         $errorMessage = "Email už používá jiný uživatel";
+    }
+    if ($error == "emptyinput") {
+        $errorMessage = "Prázdný vstup";
+    }
+
+    if ($error == "badEmailFormat") {
+        $errorMessage = "Špatný formát emailu";
     }
 }
 
 if (isset($_POST['submit'])) {
     extract($_POST);
-    $row = UserRepository::getUserById($_GET["id"]);
+    $userId = $_GET["id"];
+    $row = UserRepository::getUserById($userId);
+
+    if (ValidationUtils::isEmpty($username) || ValidationUtils::isEmpty($firstName) ||
+        ValidationUtils::isEmpty($lastName) || ValidationUtils::isEmpty($email) ||
+        ValidationUtils::isEmpty($role) || ValidationUtils::isEmpty($password)) {
+        header("location: ./userEdit.php?id=$userId&error=emptyinput");
+        exit();
+    }
+
+    if (ValidationUtils::invalidEmail($email)){
+        header("location: ./userAdd.php?id=$userId&?error=badEmailFormat");
+        exit();
+    }
+
 
     if (UserRepository::usernameExists($username) && $username != $row["username"]) {
-        header("location: ./userEdit.php?error=usernameExists");
+        header("location: ./userEdit.php?id=$userId&?error=usernameExists");
         exit();
     }
 
     if (UserRepository::emailExists($email) && $email != $row["email"]) {
-        header("location: ./userEdit.php?error=emailExists");
+        header("location: ./userEdit.php?id=$userId&?error=emailExists");
         exit();
     }
 
