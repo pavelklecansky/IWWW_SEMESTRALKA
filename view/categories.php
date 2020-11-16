@@ -9,8 +9,8 @@ if (!CategoryRepository::categoryExistsSlug($_GET["slug"])) {
     exit();
 }
 $category = (CategoryRepository::getCategoryIdAndTitleBySlug($_GET["slug"]));
-$categoryId = (CategoryRepository::getCategoryIdAndTitleBySlug($_GET["slug"]))["category_id"];
-$categoryTitle = (CategoryRepository::getCategoryIdAndTitleBySlug($_GET["slug"]))["title"];
+$categoryId = $category["category_id"];
+$categoryTitle = $category["title"];
 ?>
 
 
@@ -27,7 +27,8 @@ $categoryTitle = (CategoryRepository::getCategoryIdAndTitleBySlug($_GET["slug"])
                     foreach (TagRepository::getTagByPostId($post_id) as $tagId) {
                         $tag = TagRepository::getTagById($tagId["tag_id"]);
                         $tagTitle = $tag["title"];
-                        echo "<a href='index.php?page=tags&title=$tagTitle'>$tagTitle</a> ";
+                        $tagSlug = $tag["slug"];
+                        echo "<a href='index.php?page=tags&slug=$tagSlug'>$tagTitle</a> ";
                     }
                     ?></p>
             </header>

@@ -10,7 +10,8 @@
                     foreach (TagRepository::getTagByPostId($post_id) as $tagId) {
                         $tag = TagRepository::getTagById($tagId["tag_id"]);
                         $tagTitle = $tag["title"];
-                        echo "<a href='index.php?page=tags&title=$tagTitle'>$tagTitle</a> ";
+                        $tagSlug = $tag["slug"];
+                        echo "<a href='index.php?page=tags&slug=$tagSlug'>$tagTitle</a> ";
                     }
                     ?></p>
             </header>

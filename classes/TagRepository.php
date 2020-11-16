@@ -29,6 +29,15 @@ class TagRepository
         return $stmt->fetch();
     }
 
+    static function getTagIdAndTitleBySlug($slug)
+    {
+        $conn = Connection::getPdoInstance();
+        $stmt = $conn->prepare("SELECT tag_id,title FROM tag WHERE slug=:slug");
+        $stmt->bindParam(":slug", $slug);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
     static function getTagByPostId($id)
     {
         $conn = Connection::getPdoInstance();
@@ -60,6 +69,19 @@ class TagRepository
         $conn = Connection::getPdoInstance();
         $stmt = $conn->prepare("SELECT * FROM tag WHERE title=:title");
         $stmt->bindParam(":title", $title);
+        $stmt->execute();
+        if ($stmt->fetch()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    static function tagExistsSlug($slug)
+    {
+        $conn = Connection::getPdoInstance();
+        $stmt = $conn->prepare("SELECT * FROM tag WHERE slug=:slug");
+        $stmt->bindParam(":slug", $slug);
         $stmt->execute();
         if ($stmt->fetch()) {
             return true;

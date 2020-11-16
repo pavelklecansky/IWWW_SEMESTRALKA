@@ -39,6 +39,7 @@ FROM post JOIN user u on u.user_id = post.post_author JOIN category c on c.categ
        DATE_FORMAT(date, '%d.%m.%Y') as date,
        username,
        c.title                       AS categoriiTitle,
+       c.slug AS categoriiSlug,
        description
 FROM post
          JOIN user u on u.user_id = post.post_author
