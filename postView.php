@@ -29,7 +29,7 @@ if ($published == 0) {
     <header>
         <a href="./index.php"><h3>Blog</h3></a>
         <h1><?php echo $title; ?></h1>
-        <p>Publikováno <?php echo $date; ?> v <a href="index.php?page=categories&title=<?php echo $categoryTitle; ?>"><?php echo $categoryTitle; ?></a></p>
+        <p>Publikováno <?php echo $date; ?> v <a href="index.php?page=categories&slug=<?php echo $categorySlug; ?>"><?php echo $categoryTitle; ?></a></p>
         <p><i class="fas fa-tags"></i> <?php
             foreach (TagRepository::getTagByPostId($post_id) as $tagId) {
                 $tag = TagRepository::getTagById($tagId["tag_id"]);

@@ -2,7 +2,7 @@
 <?php require_once "./template/header.php" ?>
     <section id="layout">
         <div>
-            <a href=""><h1>Můj Blog</h1></a>
+            <a href="index.php"><h1>Můj Blog</h1></a>
             <?php
             if (isset($_GET["page"])) {
                 $pathToFile = "./view/" . $_GET["page"] . ".php";

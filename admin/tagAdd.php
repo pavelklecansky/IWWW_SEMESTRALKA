@@ -16,11 +16,11 @@ if (isset($_GET['error'])) {
 if (isset($_POST['submit'])) {
     extract($_POST);
     $tagId = $_GET["id"];
-    if (ValidationUtils::isEmpty($title) || ValidationUtils::isEmpty($slug)) {
+    if (ValidationUtils::isEmpty($title)) {
         header("location: ./tagAdd.php?id=$tagId&error=emptyinput");
         exit();
     }
-    TagRepository::insertTag($title, $slug);
+    TagRepository::insertTag($title, Utils::slugify($title));
     header("location: ./tags.php");
     exit();
 }
@@ -36,8 +36,6 @@ if (isset($_POST['submit'])) {
                 <legend>Přidat tag</legend>
                 <label for="title">Titulek</label>
                 <input type="text" id="title" name="title" placeholder="Titulek" required/>
-                <label for="slug">Slug</label>
-                <input type="text" id="slug" name="slug" placeholder="Slug" required/>
                 <input type="submit" name="submit" class="pure-button pure-button-primary" value="Přidej tag"/>
                 <?php
                 if ($errorMessage != "") {

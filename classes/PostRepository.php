@@ -15,7 +15,7 @@ FROM post JOIN user u on u.user_id = post.post_author JOIN category c on c.categ
     static function getAllForIndex(): array
     {
         $conn = Connection::getPdoInstance();
-        $stmt = $conn->prepare("SELECT post_id,post.title,DATE_FORMAT(date, '%d.%m.%Y') as date,username, c.title AS categoriiTitle,description
+        $stmt = $conn->prepare("SELECT post_id,post.title,DATE_FORMAT(date, '%d.%m.%Y') as date,username, c.slug AS categoriiSlug,c.title AS categoriiTitle,description
 FROM post JOIN user u on u.user_id = post.post_author JOIN category c on c.category_id = post.category_category_id WHERE published=1 GROUP BY date DESC");
         $stmt->execute();
         return $stmt->fetchAll();
@@ -24,7 +24,7 @@ FROM post JOIN user u on u.user_id = post.post_author JOIN category c on c.categ
     static function getAllForIndexByCategoryId($id): array
     {
         $conn = Connection::getPdoInstance();
-        $stmt = $conn->prepare("SELECT post_id,post.title,DATE_FORMAT(date, '%d.%m.%Y') as date,username, c.title AS categoriiTitle,description
+        $stmt = $conn->prepare("SELECT post_id,post.title,DATE_FORMAT(date, '%d.%m.%Y') as date,username, c.slug AS categoriiSlug,c.title AS categoriiTitle,description
 FROM post JOIN user u on u.user_id = post.post_author JOIN category c on c.category_id = post.category_category_id WHERE published=1 AND category_id=:id GROUP BY date DESC");
         $stmt->bindParam(":id", $id);
         $stmt->execute();
@@ -73,8 +73,8 @@ GROUP BY date DESC;");
        published,
        category_category_id,
        category_id,
-       c.title as categoryTitle,
-       slug
+       c.title as categoryTitle, c.slug as categorySlug
+       
 FROM post join category c on c.category_id = category_category_id WHERE post_id=:id");
         $stmt->bindParam(":id", $id);
         $stmt->execute();

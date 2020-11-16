@@ -15,11 +15,11 @@ if (isset($_GET['error'])) {
 if (isset($_POST['submit'])) {
     extract($_POST);
     $categoryId = $_GET["id"];
-    if (ValidationUtils::isEmpty($title) || ValidationUtils::isEmpty($slug)) {
+    if (ValidationUtils::isEmpty($title)) {
         header("location: ./categoryEdit.php?id=$categoryId&error=emptyinput");
         exit();
     }
-    CategoryRepository::updateCategory($_GET["id"], $title, $slug);
+    CategoryRepository::updateCategory($_GET["id"], $title, Utils::slugify($title));
     header("location: ./categories.php");
     exit();
 }
@@ -48,8 +48,6 @@ extract($row);
                 <label for="title">Titulek</label>
                 <input type="text" id="title" name="title" placeholder="Titulek" required
                        value="<?php echo $title; ?>"/>
-                <label for="slug">Slug</label>
-                <input type="text" id="slug" name="slug" placeholder="Slug" required value="<?php echo $slug; ?>"/>
                 <input type="submit" name="submit" class="pure-button pure-button-primary" value="Upravit kategorii"/>
                 <?php
                 if ($errorMessage != "") {

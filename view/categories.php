@@ -1,25 +1,27 @@
 <?php
-if (!isset($_GET["title"])) {
+if (!isset($_GET["slug"])) {
     header("location: ./index.php");
     exit();
 }
 
-if (!CategoryRepository::categoryExists($_GET["title"])) {
+if (!CategoryRepository::categoryExistsSlug($_GET["slug"])) {
     header("location: ./index.php");
     exit();
 }
-$categoryId = (CategoryRepository::getCategoryIdByTitle($_GET["title"]))["category_id"];
+$category = (CategoryRepository::getCategoryIdAndTitleBySlug($_GET["slug"]));
+$categoryId = (CategoryRepository::getCategoryIdAndTitleBySlug($_GET["slug"]))["category_id"];
+$categoryTitle = (CategoryRepository::getCategoryIdAndTitleBySlug($_GET["slug"]))["title"];
 ?>
 
 
 <article class="content">
-    <h3>Kategorie <?php echo $_GET["title"]; ?></h3>
+    <h3>Kategorie <?php echo $categoryTitle; ?></h3>
     <?php foreach (PostRepository::getAllForIndexByCategoryId($categoryId) as $post): extract($post) ?>
         <section class="post">
             <header>
                 <a href="./postView.php?id=<?php echo $post_id; ?>"><h2><?php echo $title; ?></h2></a>
                 <p>Publikováno <?php echo $date; ?> v <a
-                            href="index.php?page=categories&title=<?php echo $categoriiTitle; ?>"><?php echo $categoriiTitle; ?></a>
+                            href="index.php?page=categories&slug=<?php echo $categoriiSlug; ?>"><?php echo $categoriiTitle; ?></a>
                 </p>
                 <p><i class="fas fa-tags"></i> <?php
                     foreach (TagRepository::getTagByPostId($post_id) as $tagId) {

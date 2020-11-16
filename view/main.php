@@ -4,7 +4,7 @@
             <header>
                 <a href="./postView.php?id=<?php echo $post_id; ?>"><h2><?php echo $title; ?></h2></a>
                 <p>Publikováno <?php echo $date; ?> v <a
-                            href="index.php?page=categories&title=<?php echo $categoriiTitle; ?>"><?php echo $categoriiTitle; ?></a>
+                            href="index.php?page=categories&slug=<?php echo $categoriiSlug; ?>"><?php echo $categoriiTitle; ?></a>
                 </p>
                 <p><i class="fas fa-tags"></i> <?php
                     foreach (TagRepository::getTagByPostId($post_id) as $tagId) {

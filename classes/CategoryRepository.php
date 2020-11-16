@@ -29,6 +29,15 @@ class CategoryRepository
         return $stmt->fetch();
     }
 
+    static function getCategoryIdAndTitleBySlug($slug)
+    {
+        $conn = Connection::getPdoInstance();
+        $stmt = $conn->prepare("SELECT category_id,title FROM category WHERE slug=:slug");
+        $stmt->bindParam(":slug", $slug);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
     static function getCategoryTitleById($id)
     {
         $conn = Connection::getPdoInstance();
@@ -52,6 +61,19 @@ class CategoryRepository
         $conn = Connection::getPdoInstance();
         $stmt = $conn->prepare("SELECT * FROM category WHERE title=:title");
         $stmt->bindParam(":title", $title);
+        $stmt->execute();
+        if ($stmt->fetch()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    static function categoryExistsSlug($slug)
+    {
+        $conn = Connection::getPdoInstance();
+        $stmt = $conn->prepare("SELECT * FROM category WHERE slug=:slug");
+        $stmt->bindParam(":slug", $slug);
         $stmt->execute();
         if ($stmt->fetch()) {
             return true;
