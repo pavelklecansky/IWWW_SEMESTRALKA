@@ -27,14 +27,14 @@ if ($published == 0) {
 
 <section id="layoutPost">
     <header>
-        <a href="index.php"><h3>Blog</h3></a>
+        <a href="./index.php"><h3>Blog</h3></a>
         <h1><?php echo $title; ?></h1>
-        <p>Publikováno <?php echo $date; ?> v <a href="categories.php?title=<?php echo $categoryTitle; ?>"><?php echo $categoryTitle; ?></a></p>
+        <p>Publikováno <?php echo $date; ?> v <a href="index.php?page=categories&title=<?php echo $categoryTitle; ?>"><?php echo $categoryTitle; ?></a></p>
         <p><i class="fas fa-tags"></i> <?php
             foreach (TagRepository::getTagByPostId($post_id) as $tagId) {
                 $tag = TagRepository::getTagById($tagId["tag_id"]);
                 $tagTitle = $tag["title"];
-                echo "<a href='tags.php?title=$tagTitle'>$tagTitle</a> ";
+                echo "<a href='index.php?page=tags&title=$tagTitle'>$tagTitle</a> ";
             }
             ?></p>
     </header>

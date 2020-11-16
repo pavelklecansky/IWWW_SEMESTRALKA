@@ -16,7 +16,7 @@ if (isset($_POST['submit'])) {
     $postId = $_GET["id"];
     if (ValidationUtils::isEmpty($title) || ValidationUtils::isEmpty($content) ||
         ValidationUtils::isEmpty($date) || ValidationUtils::isEmpty($published) ||
-        ValidationUtils::isEmpty($author) || ValidationUtils::isEmpty($category) || ValidationUtils::isEmpty($description)) {
+        ValidationUtils::isEmpty($category) || ValidationUtils::isEmpty($description)) {
         header("location: ./postEdit.php?id=$postId&error=emptyinput");
         exit();
     }
