@@ -18,7 +18,7 @@ if ($published == 0 && !$user->isLogged()) {
     exit();
 }
 if ($published == 0) {
-    echo "<h2 style='color: red'>Článek není publikován</h2>";
+    echo "<h2 style='color: #ff0000'>Článek není publikován</h2>";
 }
 
 ?>
